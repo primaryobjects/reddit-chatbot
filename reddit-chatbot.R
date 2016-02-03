@@ -1,12 +1,26 @@
 library(jsonlite)
 library(stringdist)
 
-# Datasets downloaded from http://couch.whatbox.ca:36975/reddit/comments/monthly/ (note, json needs [ at front and ] at end of file, also replace "}\n" with "},\n" for correct JSON format).
-corpus <- fromJSON('RC_2007-10')
-corpus <- rbind(corpus, fromJSON('RC_2007-11'))
-corpus <- rbind(corpus, fromJSON('RC_2007-12'))
-corpus <- rbind(corpus, fromJSON('RC_2008-01'))
-corpus <- rbind(corpus, fromJSON('RC_2008-02'))
+corpus <- data.frame()
+
+loadFile <- function(pathName) {
+  corpus <<- rbind(corpus, fromJSON(pathName))
+}
+
+load <- function() {
+  # Datasets downloaded from http://couch.whatbox.ca:36975/reddit/comments/monthly/ (note, json needs [ at front and ] at end of file, also replace "}\n" with "},\n" for correct JSON format).
+  cat('Loading..')
+  loadFile('data/RC_2007-10')
+  cat('1..')
+  loadFile('data/RC_2007-11')
+  cat('2..')
+  loadFile('data/RC_2007-12')
+  cat('3..')
+  loadFile('data/RC_2008-01')
+  cat('4..')
+  loadFile('data/RC_2008-02')
+  cat('Done.')
+}
 
 mydist <- function (str1, str2) {
   # Simple string distance using 'osa'.
