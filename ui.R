@@ -10,7 +10,7 @@ library(shinyjs)
 shinyUI(fluidPage(
   tags$head(tags$script(src = "script.js")),
   titlePanel('Reddit Chatbot'),
-  mainPanel(
+  mainPanel(width = '100%',
     useShinyjs(),
     h4(id='status', 'Please wait, loading ..'),
     verbatimTextOutput('history'),

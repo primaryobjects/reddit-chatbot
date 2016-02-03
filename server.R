@@ -11,7 +11,7 @@ source('reddit-chatbot.R')
 loadFile('data/RC_2007-10')
 
 shinyServer(function(input, output, session) {
-  history <- '> Hello'
+  history <- '>> Hello'
 
   # Enable controls.
   hide(id = 'status', anim = TRUE)
@@ -19,12 +19,9 @@ shinyServer(function(input, output, session) {
   enable('text')
   
   output$history <- eventReactive(input$talk, ignoreNULL = FALSE, {
-    # Append user text.
-    history <<- paste(history, input$text, sep = '\n')
-    
     # Respond to user.
     if (nchar(input$text) > 0) {
-      history <<- paste(history, paste('>', talk(input$text), sep = ' '), sep = '\n')
+      history <<- paste(history, paste('>', input$text, sep = ' '), paste('>>', talk(input$text), sep = ' '), sep = '\n')
     }
     
     # Clear textbox.
